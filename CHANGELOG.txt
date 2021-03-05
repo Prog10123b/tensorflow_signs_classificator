@@ -1,0 +1,7 @@
+v1.0.0
+
+ - Added cnn network
+ - Added entire model save
+ - Added perceptron settings
+ - Added dataset import modes
+ - Old scripts will not work, that's why scripts updated

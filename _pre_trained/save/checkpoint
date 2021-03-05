@@ -1,2 +1,2 @@
-model_checkpoint_path: "save_00"
-all_model_checkpoint_paths: "save_00"
+model_checkpoint_path: "save_cnn_1"
+all_model_checkpoint_paths: "save_cnn_1"

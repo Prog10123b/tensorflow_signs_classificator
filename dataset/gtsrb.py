@@ -1,6 +1,7 @@
+# v1.0.0
 from glob import glob
 from random import randint, choice
-from cv2 import imread, resize, cvtColor, COLOR_BGR2GRAY, INTER_AREA
+from cv2 import imread, resize, cvtColor, inRange, COLOR_BGR2GRAY, COLOR_BGR2HSV, COLOR_GRAY2RGB, INTER_AREA
 from numpy import array
 
 class gtsrb:
@@ -13,7 +14,7 @@ class gtsrb:
         self.test_labels = []
         self.all_files = []
 
-    def load_data(self):
+    def load_data(self, wb_mode):
         for i in range(6):
             self.all_files.append(glob(self.path + '\\' + str(i) + '\\*.ppm'))
         all_files_copy = self.all_files
@@ -27,7 +28,10 @@ class gtsrb:
             image = imread(prec_choice)
             res_z = (self.size, self.size)
             image = resize(image, res_z, interpolation=INTER_AREA)
-            image = 255 - cvtColor(image, COLOR_BGR2GRAY)
+            if wb_mode:
+                image = cvtColor(image, COLOR_BGR2GRAY)
+            #image = 255 - inRange(image, (30, 0, 100), (255, 120, 255))
+            #image = 255 - cvtColor(image, COLOR_BGR2GRAY)
             if randint(0, 7) == 0:
                 self.test_images.append(image)
                 self.test_labels.append(global_choice)

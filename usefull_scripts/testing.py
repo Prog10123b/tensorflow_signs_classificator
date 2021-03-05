@@ -1,3 +1,4 @@
+# v1.0.0
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -10,7 +11,7 @@ from image_classification import classificator
 
 classific = classificator()
 
-classific.load_model('save\\save_03')
+classific.load_entire_model('save\\save_cnn_1')
 
 cap = cv.VideoCapture(1) #поток с камеры
 
@@ -136,9 +137,10 @@ while(True):
                     crop_ellipse = frame[int(y-(h/2) - 8):int(y+(h/2) + 8), int(x-(w/2) - 8):int(x+(w/2) + 8)] #создаем обрезанное изображение маски (crop_ellipse), вырезается из чб маски в месте найденного эллипса
                     if np.count_nonzero(crop_ellipse): #если обрезание удалось
 
-                        crop_ellipse = cv.cvtColor(crop_ellipse, cv.COLOR_BGR2GRAY)
+                        # we don't need this because cnn works in 3-channels images
+                        # crop_ellipse = cv.cvtColor(crop_ellipse, cv.COLOR_BGR2GRAY)
 
-                        img_temp = 255 - cv.resize(crop_ellipse,(28,28))
+                        img_temp = cv.resize(crop_ellipse, (32, 32))    # updated size of image (28x28 -> 32x32)
 
                         predictions = classific.model.predict(np.array([img_temp, ]))
                         class_number = int(np.argmax(predictions[0]))
